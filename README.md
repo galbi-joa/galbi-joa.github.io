@@ -13,5 +13,13 @@
 
 [作业3链接](https://galbi-joa.github.io/combined_population_influx_map.html)
 
+# 计算机科学与编程入门课程第二次作业
+##作业1
+在第一项作业中，我已经使用了requests和BeautifulSoup库来爬取自社会学研究创始以来最著名的期刊“社会学研究”的所有主题及关键词。在本次作业中，我完成了两个主要项目：
 
+1) 利用pyecharts的Graph库，我构建了一个展示主题关键词之间关系的图表，该图表由节点（nodes）和连接线（links）组成。
+2) 我发现因为关系图的数据太多，有时候很难吵到想要的关键词，于是我修改了由pyecharts生成的HTML代码，并通过整合OpenAI API，实现了一个交互式网页。最有让用户可以通过GPT模型与关系图中的关键词进行交流。
 
+具体实现方式说明：我观察到生成的HTML文件中，pyecharts的数据被存放在<script>标签下名为option_xxxxxx的变量中。这个变量包含多个列表，但关键数据主要存储在data和links列表中。因此，我编写了一个名为generateChartDescription的函数来提取这两个列表的值。这个函数的目的不仅是提取数据，还要生成一个描述关系图中所有关键词连接的字符串。然后，这个字符串会与用户输入的关键词问题一起，被保存在一个名为fullPrompt的变量中，最终传递给GPT模型。从本质上讲，这种方式结合了in-context learning，链接了提示词和数据两个关键元素。相关的具体代码可参考HTML文件的<script>部分。
+
+[作业 链接](https://galbi-joa.github.io/data-with-llm.html)
