@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京研究</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #991b1b;
+            color: white;
+            padding: 2rem 1.5rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .day-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .day-tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .day-tab.active {
+            background-color: #991b1b;
+            color: white;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #e5e5e5;
+            z-index: 0;
+        }
+
+        .location-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 100px;
+        }
+
+        .location-number {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+
+        .location-btn.active .location-number {
+            background-color: #991b1b;
+            color: white;
+            border-color: #991b1b;
+        }
+
+        .content-section {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .image-carousel {
+            position: relative;
+            margin-bottom: 2rem;
+            /* 이미지 비율을 유지하기 위한 컨테이너 설정 */
+            height: auto;
+            max-height: 600px; /* 최대 높이 설정 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .carousel-image {
+            width: auto; /* auto로 변경 */
+            max-width: 100%; /* 컨테이너 너비를 넘지 않도록 */
+            height: auto; /* 비율 유지 */
+            max-height: 600px; /* 최대 높이 설정 */
+            object-fit: contain; /* cover에서 contain으로 변경 */
+            border-radius: 0.5rem;
+        }
+        .image-carousel::before {
+            content: '';
+            display: block;
+            padding-bottom: 56.25%; /* 16:9 비율 유지 */
+        }   
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255,255,255,0.8);
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .carousel-btn.prev { left: 1rem; }
+        .carousel-btn.next { right: 1rem; }
+
+        .location-info {
+            margin-top: 2rem;
+        }
+
+        .location-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .meta-card {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>北京研究</h1>
+        <p>总共两天的文化之旅 -- 郑龙湖 社会学系 2300093105</p>
+    </header>
+
+    <div class="container">
+        <div class="day-tabs">
+            <button class="day-tab active" data-day="1">第一天</button>
+            <button class="day-tab" data-day="2">第二天</button>
+        </div>
+
+        <div class="timeline">
+            <button class="location-btn active" data-location="1">
+                <div class="location-number">1</div>
+                <span>西单</span>
+            </button>
+            <button class="location-btn" data-location="2">
+                <div class="location-number">2</div>
+                <span>灵境胡同</span>
+            </button>
+            <button class="location-btn" data-location="2">
+                <div class="location-number">2</div>
+                <span>汐肆咖啡</span>
+            </button>
+            <button class="location-btn" data-location="2">
+                <div class="location-number">2</div>
+                <span>白塔寺</span>
+            </button>
+            <button class="location-btn" data-location="2">
+                <div class="location-number">2</div>
+                <span>北京四中</span>
+            </button>
+            <button class="location-btn" data-location="2">
+                <div class="location-number">2</div>
+                <span>悠航slowboat</span>
+            </button>
+            <!-- 나머지 위치들 -->
+        </div>
+
+        <div class="content-section">
+            <div class="image-carousel">
+                <img src="xd1.jpg" alt="" class="carousel-image">
+                <button class="carousel-btn prev">&#8249;</button>
+                <button class="carousel-btn next">&#8250;</button>
+            </div>
+
+            <div class="location-info">
+                <h2 class="location-title">西单</h2>
+                <p>西单，这座承载着北京数百年历史与文化的繁华之地，得名于明清时期矗立在长安街西侧的"西单牌楼"，曾是皇城西南的重要门户。
+                    <br><br>明清时期，西单凭借其优越的地理位置，逐渐发展成为商贾云集的商业中心，店铺、酒肆、饭馆林立，市井气息浓厚。这里不仅是曹雪芹构思《红楼梦》的灵感之地，也是文人墨客、戏曲名流的聚集之所，小石虎胡同的国立蒙藏学校旧址见证了无数文化名人的足迹。
+                    <br><br>从明代衙署采办的集中地，到清代满人贵族的消费中心，再到民国时期戏院、商场的兴起，西单始终是北京商业与文化的交汇点。尽管1923年西单牌楼被拆除，1937年厚德商场遭遇火灾，但西单的繁华与活力从未消退。
+                    <br><br>如今的西单，虽已现代化，却依然保留着老北京的历史肌理与独特韵味，成为北京城市记忆中不可或缺的一部分。无论是漫步于胡同深处，还是驻足于现代商场，西单都在诉说着这座城市的过去与现在。
+                    <br><br>而且西单的一个好处，就是从西单往北走，可以穿越北京的“古”与“现”
+                </p>
+                
+                <div class="meta-info">
+                    <div class="meta-card">
+                        <h3>⏰ 建议游览时间</h3>
+                        <p>1-2小时</p>
+                    </div>
+                    <div class="meta-card">
+                        <h3>➡️ 下一站</h3>
+                        <p>步行10分钟</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       const locations = [
+  {
+    title: '西单',
+    subtitle: '咖啡与历史的交融',
+    description:
+      '西单，这座承载着北京数百年历史与文化的繁华之地，得名于明清时期矗立在长安街西侧的"西单牌楼"，曾是皇城西南的重要门户。' +
+      '<br><br>明清时期，西单凭借其优越的地理位置，逐渐发展成为商贾云集的商业中心，店铺、酒肆、饭馆林立，市井气息浓厚。这里不仅是曹雪芹构思《红楼梦》的灵感之地，也是文人墨客、戏曲名流的聚集之所，小石虎胡同的国立蒙藏学校旧址见证了无数文化名人的足迹。' +
+      '<br><br>从明代衙署采办的集中地，到清代满人贵族的消费中心，再到民国时期戏院、商场的兴起，西单始终是北京商业与文化的交汇点。尽管1923年西单牌楼被拆除，1937年厚德商场遭遇火灾，但西单的繁华与活力从未消退。' +
+      '<br><br>如今的西单，虽已现代化，却依然保留着老北京的历史肌理与独特韵味，成为北京城市记忆中不可或缺的一部分。无论是漫步于胡同深处，还是驻足于现代商场，西单都在诉说着这座城市的过去与现在。' +
+      '<br><br>而且西单的一个好处，就是从西单往北走，可以穿越北京的“古”与“现”。',
+    images: [
+      'xd1.jpg',
+      'xd2.jpg',
+      'xd3.JPG',
+    ],
+    time: '1小时',
+    nextStop: '步行10分钟',
+  },
+  {
+    title: '灵境胡同',
+    subtitle: '穿越北京的古与现',
+    description:
+      '西单的独特之处，就是从这里往北走，能穿越北京的"古"与"现"，感受这座城市的变迁。而灵境胡同，就跨越这核心地区。' +
+      '<br><br>漫步在北京西城区东南部的灵境胡同，您会感受到一段跨越数百年的历史长廊。这条东起府右街、西至西单北大街，全长664米、最宽处达32.18米的胡同，堪称北京最宽的胡同，其名字源自明代的灵济宫。相传明成祖朱棣在永乐十五年（1417年）因梦中得道士徐知证、徐知谔赐药痊愈，特建灵济宫以表谢意。这座规模宏大的皇家道观不仅是百官朝见皇帝的预演场所，更是大学士讲学的场地，鼎盛时期听讲者竟达上千人。到了清代，灵济宫逐渐衰落，其名在民间以讹传讹，演变为"灵清宫"或"林清宫"，最终谐音为"灵境胡同"。' +
+      '<br><br>有趣的是，嘉庆年间天理教领袖林清的活动，为这条胡同增添了更多历史色彩。历史上，灵境胡同分为东西两段，东段因灵济宫得名，西段则称"细米胡同"，直到1949年后才合并统称为灵境胡同。漫步胡同，您会邂逅末代帝师陈宝琛的故居（33号院），那保存完好的垂花门依旧静静诉说着昔日故事；在41号院，开国将军陈赓的音容笑貌仿佛仍在街坊记忆中鲜活。1985年起的城市改造使西段民宅让位于多层居民楼，1992年的再次拓宽更使这条古老胡同焕发新颜，但它依然保留着独特的历史韵味。' +
+      '<br><br>如今的灵境胡同已成为一条历史与现代交融的文化长街，老佛爷百货与传统四合院比邻而立，新旧交织，述说着北京的昨日与今朝。2022年，它被收录入《首都功能核心区传统地名保护名录》，正式确认了其深厚的文化价值。这条被誉为"最宽胡同"的历史街道，不仅是北京城市肌理的重要组成部分，更是一部立体的城市变迁史，承载着从明清皇家道观到现代商业街区的精彩蜕变，期待与每一位游客分享它的动人故事。',
+    images: [
+      'lj1.jpg',
+      'lj2.jpg',
+      'lj3.jpg',
+    ],
+    time: '1.5小时',
+    nextStop: '步行15分钟',
+  },
+  {
+    title: '汐肆咖啡',
+    subtitle: '乐器主题咖啡馆',
+    description:
+      '地址： 北京市西四南大街18号华乐颂酒店、 人均49' +
+      '<br><br>坐落于北京西城区西四南大街18号华乐颂酒店一层的汐肆咖啡，是一家别具韵味的乐器主题咖啡馆。这里的老板是位年轻貌美的书法家，店内所有菜单都用毛笔书法书写，彰显文化气息。如果想直接来的话，咖啡馆位于西安门大街和西四大街的交汇处，从地铁4号线西四站D口出来，仅需步行几步便可到达。' +
+      '<br><br>一进店内，您会被墙上悬挂的各式乐器所吸引，大提琴、钢琴、古筝等乐器装点着空间。虽然一层的吧台和沙发区看起来空间不大，但热情的店员会为您介绍，这里最令人惊喜的还是二楼的露台。搭乘极具设计感的电梯上二楼，仿佛穿越时空，映入眼帘的是一面精美的中式徽派屏风墙。绕过屏风，您将看到一个开阔的露台空间，这里不仅设有绿地和秋千椅，更可以将北京城市景观尽收眼底：向东远眺可见国贸和中国尊，对面就是历史悠久的红楼公共藏书楼（原红楼影院），西边是地址礼堂，下方则是与中轴线垂直的西安门大街，著名的西什库教堂就在这条街上。' +
+      '<br><br>咖啡馆的特色饮品包括装饰着音符图案的汐肆拿铁，以及展现水墨画韵味的国风拿铁。值得一提的是，每到周六晚上，这里还会放映露天电影。您可以在这里度过悠闲的一天：白天品咖啡、看书，感受浓厚的音乐艺术氛围；晚上欣赏一场露天电影，享受别样的北京夜色。' +
+      '<br><br>这家咖啡馆所在的华乐颂酒店，前身是有着70余年历史的"华兴清华体育用品中心"，曾是新街口乐器特色街的标志性老字号。如今，它以全新的面貌延续着音乐文化的传统，为游客提供了一个集咖啡、音乐、艺术与城市景观于一体的文化空间。',
+    images: [
+      'yy1.jpg',
+      'yy2.JPG',
+      'yy3.JPG',
+      'yy1.JPG',
+
+    ],
+    time: '1.5小时',
+    nextStop: '步行15分钟',
+  },
+  {
+    title: '白塔寺',
+    subtitle: '妙应寺',
+    description:
+      '白塔寺，正式名称为妙应寺，始建于元代至元八年（1271年），由元世祖忽必烈敕令尼泊尔工艺家阿尼哥设计建造。这座寺院的前身是辽代的永安寺，后毁于战火。元代时，忽必烈为"保大业之隆昌"，在辽塔旧址上建造了这座藏式白塔，并以白塔为中心修建了占地约16万平方米的皇家寺院"大圣寿万安寺"。虽然元末寺院毁于雷火，但白塔幸存下来，到了明代天顺元年（1457年），寺院重建并更名为"妙应寺"，形成了今日的格局。' +
+      '<br><br>白塔是寺院的核心建筑，高约51米，是中国现存年代最早、规模最大的藏式佛塔。这座宏伟的建筑由塔基、塔身、相轮、华盖和塔刹五部分组成。塔基是三层须弥座，由大城砖垒砌，面积达1422平方米；塔身呈覆钵式结构，象征佛教的庄严与神圣；十三层相轮象征佛教的十三天，顶部是直径9.7米的华盖，悬挂着36片铜制华鬘和风铃；塔刹高约5米，重达4吨，为铜鎏金制成，是中国古代塔刹中的珍品。整个寺院按照汉传佛教的伽蓝七堂制布局，包括山门、钟鼓楼、天王殿、大觉宝殿、七佛宝殿等建筑，完美展现了汉藏文化的融合。' +
+      '<br><br>白塔寺不仅是一座古老的寺院，更是多元文化交融的见证。它是汉、蒙古、藏民族文化融合的杰作，见证了中华民族共同体的形成与发展。元代时期，这里不仅是皇家宗教中心，还是百官习仪和译经的场所。1961年，白塔寺被列为第一批全国重点文物保护单位，近年来经过多次修缮，保存完好。如今，它已成为北京citywalk的热门景点，寺内常设"白塔寺历史文化展"，通过丰富的展示让游客了解其悠久历史。同时，通过"白塔寺再生计划"，周边胡同区域也保留了老北京的风貌，实现了历史街区与现代生活的和谐共存。' +
+      '<br><br>白塔寺位于北京市西城区阜成门内大街171号，乘坐地铁2号线到阜成门站，或乘坐101路、102路、103路公交车到白塔寺东站即可到达。开放时间为周二至周日9:00-17:00（16:30停止售票），周一闭馆，门票20元/人。漫步于此，您不仅能感受到深厚的历史文化底蕴，更能体会到古都北京独特的人文魅力。',
+    images: [
+      'bts1.JPG',
+      'bts2.JPG',
+    ],
+    time: '1小时',
+    nextStop: '步行8分钟',
+  },
+  {
+    title: '北京四中',
+    subtitle: '难忘的高中岁月',
+    description:
+      '作为一名留学生，那段高中时期带给我深刻的记忆与成长。' +
+      '<br><br>说实话，那段高中时期真的不容易。如果有人问我高中过得怎么样，虽然我总是对朋他们说"挺好的"，但实际上真的很辛苦。毕业后我一次也没有回去过母校。不仅仅是学习上的压力，更是那种令人窒息的氛围：激烈的竞争却又无声无息，就像一个安静的漩涡，慢慢地吞噬着快乐和青春。每天早出晚归，晚自习结束后还要去自习室自习到很晚，周末也都在赶作业、准备考试。' +
+      '<br><br>虽然亚洲的升学考试制度普遍让高中生活都不轻松，但作为一名留学生，和优秀的中国同学一起上课，那种压力格外沉重。看着他们娴熟地运用母语学习，而我却要花双倍的时间去理解课程内容；看着他们轻松掌握的知识点，我却要反复推敲、翻来覆去地背诵。那种语言关和文化关带来的焦虑，和对未来的迷茫，常常让我夜不能寐。' +
+      '<br><br>不过，现在回想起来，正是那段艰难的岁月，造就了今天的我。从白塔寺里漫步，我大概会这样向好朋友倾诉这段难忘的回忆。',
+    images: [
+      'sz1.png',
+      '/api/placeholder/800/500',
+      '/api/placeholder/800/500',
+    ],
+    time: '30分钟',
+    nextStop: '步行20分钟',
+  },
+  {
+    title: '悠航slowboat',
+    subtitle: '什刹海店',
+    description:
+      '作为一家连续五年荣登必吃榜单的汉堡店，悠航的什刹海店堪称北京最佳用餐地点之一。位于什刹海旁边，这家店的选址可谓独具匠心。无论是在一层的露台，还是在三层的室外座位区，都能将什刹海的迷人景色尽收眼底。特别是傍晚时分，坐在湖边的露台上，一边享用美食，一边感受微风拂面，欣赏夕阳下的湖光山色与熙熙攘攘的人群，绝对是体验北京慢生活的绝佳选择。' +
+      '<br><br>说到店内的招牌美食，28天熟成牛肉汉堡自然是重中之重。事实上，悠航的每一款汉堡都具有相当的水准。除了汉堡，这里的烤玉米棒也值得一试，提供麻辣和黄油两种口味，其中麻辣口味尤其受欢迎。五味沙拉中搭配的蓝纹奶酪碎，给人一种独特的风味体验。店内还供应各种精酿啤酒，搭配美食别有一番滋味。' +
+      '<br><br>不过需要提醒的是，如果想要在三层就餐，虽然也能欣赏到不错的景色，但视野可能会被一棵大树稍微遮挡。相比之下，一层露台的视野更为开阔。建议选个悠闲的下午前往，体验这里独特的美食与景致的双重享受。我觉得这里不仅仅是一家餐厅，更是感受北京慢生活的绝佳去处。',
+    images: [
+      'yh1.jpg',
+      'yh2.JPG',
+      'yh3.JPG',
+    ],
+    time: '2小时',
+  },
+];
+
+        let currentLocation = 0;
+        let currentImage = 0;
+
+        // 위치 버튼 클릭 이벤트
+        document.querySelectorAll('.location-btn').forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                document.querySelector('.location-btn.active').classList.remove('active');
+                btn.classList.add('active');
+                updateContent(index);
+            });
+        });
+
+        // 이미지 캐러셀 버튼 이벤트
+        document.querySelector('.carousel-btn.prev').addEventListener('click', () => {
+            currentImage = (currentImage - 1 + locations[currentLocation].images.length) % locations[currentLocation].images.length;
+            updateImage();
+        });
+
+        document.querySelector('.carousel-btn.next').addEventListener('click', () => {
+            currentImage = (currentImage + 1) % locations[currentLocation].images.length;
+            updateImage();
+        });
+
+        function updateContent(index) {
+            currentLocation = index;
+            currentImage = 0;
+            const location = locations[index];
+            
+            document.querySelector('.location-title').textContent = location.title;
+            document.querySelector('.location-info p').innerHTML = location.description;
+            document.querySelector('.meta-info .meta-card:first-child p').textContent = location.time;
+            
+            if (location.nextStop) {
+                document.querySelector('.meta-info .meta-card:last-child').style.display = 'block';
+                document.querySelector('.meta-info .meta-card:last-child p').textContent = location.nextStop;
+            } else {
+                document.querySelector('.meta-info .meta-card:last-child').style.display = 'none';
+            }
+            
+            updateImage();
+        }
+
+        function updateImage() {
+            document.querySelector('.carousel-image').src = locations[currentLocation].images[currentImage];
+        }
+    </script>
+</body>
+</html>
