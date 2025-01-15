@@ -186,8 +186,9 @@
 
     <div class="container">
         <div class="day-tabs">
-            <button class="day-tab active" data-day="1">第一天</button>
-            <button class="day-tab" data-day="2">第二天</button>
+            <button class="day-tab active" data-day="0">第一天</button>
+            <button class="day-tab" data-day="1">第二天</button>
+            <button class="day-tab" data-day="2">第三天</button>
         </div>
 
         <div class="timeline">
@@ -200,19 +201,19 @@
                 <span>灵境胡同</span>
             </button>
             <button class="location-btn" data-location="2">
-                <div class="location-number">2</div>
+                <div class="location-number">3</div>
                 <span>汐肆咖啡</span>
             </button>
             <button class="location-btn" data-location="2">
-                <div class="location-number">2</div>
+                <div class="location-number">4</div>
                 <span>白塔寺</span>
             </button>
             <button class="location-btn" data-location="2">
-                <div class="location-number">2</div>
+                <div class="location-number">4</div>
                 <span>北京四中</span>
             </button>
             <button class="location-btn" data-location="2">
-                <div class="location-number">2</div>
+                <div class="location-number">5</div>
                 <span>悠航slowboat</span>
             </button>
             <!-- 나머지 위치들 -->
@@ -249,7 +250,7 @@
     </div>
 
     <script>
-       const locations = [
+       const locations_1 = [
   {
     title: '西单',
     subtitle: '咖啡与历史的交融',
@@ -349,51 +350,223 @@
   },
 ];
 
-        let currentLocation = 0;
-        let currentImage = 0;
+const days = [
+    {
+        id: 1,
+        title: '第一天',
+        subtitle: '西单到北海公园——咖啡与历史的交融',
+        locations: locations_1  // 기존 locations 배열 사용
+    },
+    {
+        id: 2,
+        title: '第二天',
+        subtitle: '探索北京的现代与传统',
+        description: '规划中...',
+        locations: [
+    {
+        title: '三里河公园',
+        subtitle: '待定',
+        description: 
+            '三里河公园位于北京市东城区南芦草园胡同与群智胡同交叉口东50米，虽是一处开放式的小型公园，却蕴含着深厚的历史底蕴。它的历史可以追溯到元朝，当时这里就有小河流过。到了清正统年间，为了防止雨季洪涝，这里被开凿成泄洪通道，因此得名"三里河"。2016年，古三里河水系得到修复，重现了"三水巷绕前门"的历史风貌。<br><br>' +
+            '从草厂三条向南步行约10分钟，穿过充满韵味的胡同，就能到达公园东门。虽然没有显眼的标识，但当您看到河中戏水的黑天鹅和值守的保安，就知道到达目的地了。公园虽小，却是一处难得的城市宝藏。这里有小桥流水、凉亭步道，溪流旁芦苇摇曳，仿佛一处江南小镇般清幽。<br><br>' +
+            '园内四季景色各异：春天河畔繁花点缀，夏日荷花亭亭玉立，秋天芦苇花随风飘扬。特别值得<br><br>' + // 의도적으로 끊긴 문장 그대로 유지
+            '从公园西门出来，马路对面就是历史悠久的鲜鱼口牌楼。三里河公园位于前门地区，周边汇集了众多北京特色景点，无论是本地人还是外地游客，都可以在这里感受老北京的独特魅力。',
+        images: ['slh1.JPG', 'slh2.JPG', 'slh3.JPG','slh4.JPG'],
+        time: '1个小时',
+        nextStop: '30分钟'
+    },
+    {
+        title: 'VOYAGE COFFEE（三里河公园内）',
+        subtitle: '待定',
+        description: 
+            '这家咖啡馆虽然因为位置较为隐蔽，初次前往可能不太容易找到，但正是这份"隐世"之感让它更显独特。咖啡馆内外都营造出一种悠闲惬意的氛围，店内外都设有座位区，让顾客可以根据天气和心情自由选择。<br><br>' +
+            '特别是在春夏季节，您可以选择坐在户外，一边品着咖啡(人均50)，一边欣赏眼前的景致：河里的野鸭自在游弋，微风拂过树梢，光影斑驳，仿佛暂时逃离了城市的喧嚣。即便在户外度过一整个下午，也不会觉得时光虚度。<br><br>' +
+            '不过冬季时节，由于树木凋零，户外温度较低，建议选择在温暖的店内就座。虽然冬日的景致略显萧瑟，但透过玻璃望向外面的河景，别有一番意境。如果想要体验最佳的游园和品咖啡时光，建议在春夏季节前来打卡。',
+        images: ['vc1.JPG', 'vc2.JPG'],
+        time: '1个小时',
+        nextStop: '40分钟'
+    },
+    {
+        title: '前门大街',
+        subtitle: '待定',
+        description: 
+            '前门大街位于北京中轴线上，北起前门月亮湾，南至天桥路口，全长845米。这条街道的历史可以追溯到明代，当时是皇帝出城赴天坛、山川坛的御路。清代至民国时期，这里被称为"正阳门大街"，是北京最繁华的街市之一，商贾云集，酒榭歌楼林立。1965年，正式定名为"前门大街"，2008年经过大规模修缮后重新开放，成为一条集传统与现代于一体的商业步行街。<br><br>' +
+            '这里是京味文化的集中承载地，汇聚了众多百年老字号，如全聚德烤鸭店、同仁堂药店、瑞蚨祥绸布店、内联升鞋店等。这些老字号不仅是商业象征，更是北京历史文化的重要见证。街上还开设了多家特色博物馆，如四联美发博物馆、盛锡福帽子博物馆等，展现着传统工艺与现代消费的完美融合。值得一提的是，自清代以来，前门大街就是京剧文化的重要发源地，七大戏园曾坐落于此，形成了独特的"京剧饭圈"文化。<br><br>' +
+            '近年来，前门大街通过"老字号+国潮"的商业模式焕发新生。这里不仅有故宫前门文创馆、杜莎夫人蜡像馆、天乐园国粹京剧体验馆等文化体验项目，还推出了"前门夜游"品牌，通过灯光秀、非遗市集、国风舞蹈表演等活动，打造了独具特色的夜间消费场景。<br><br>' +
+            '游览前门大街非常便利，可乘坐地铁2号线、5号线、7号线，或乘坐120路、141路、2路等公交线路抵达。值得一看的景点包括北京城内唯一保存完好的正阳门城楼与箭楼，始建于1864年的全聚德烤鸭店，以及保留了老北京风貌的大栅栏胡同。此外，前门大街还定期举办"前门国潮节""前门京味消夏季"等特色活动，游客可以参与汉服巡游、非遗市集等文化体验。<br><br>' +
+            '前门大街作为北京中轴线上的重要组成部分，完美展现了北京城市的历史底蕴与现代商业的融合。无论您是想感受老北京的传统文化，还是体验现代潮流，这里都不会让您失望。',
+        images: ['qm1.JPG', 'qm3.JPG', 'qm3.JPG'],
+        time: '30分钟',
+        nextStop: '5分中' 
+    },
+    {
+        title: '阿文汤包',
+        subtitle: '待定',
+        description: 
+            '这家拥有十多年历史的老店，如今已从胡同中搬迁至贵友大厦，店面焕然一新。新装修采用红色为主色调，巧妙融合了新派元素和本帮菜特色，让整个餐厅既保留了传统风味，又增添了现代格调。<br><br>' +
+            '说到招牌美食，蟹黄汤包绝对是必点之选。从螃蟹制作到成品出炉仅需十分钟，完美保留了蟹肉和蟹黄的原始鲜美。蟹黄汤包分为大包和小笼两种：大包汤汁丰盈，可用吸管品尝；小笼则一口一个，每一颗都是蟹黄蟹肉配以精选肉馅，鲜美满足。<br><br>' +
+            '他家的红烧狮子头是一道不容错过的淮扬名菜。个头惊人的狮子头，外皮紧实、内里软嫩，咸鲜适口，中间还藏着一颗金黄的蛋黄，配上一碗米饭，让人胃口大开。<br><br>' +
+            '腌笃鲜也是一道特色菜品。汤中有春笋、火腿、莴笋、百叶结等丰富食材，汤汁浓郁鲜美，即便白喝也回味无穷。此外，纸皮包子的特色在于其极薄的外皮和独特的粉条馅料，虽是创新之作却别有风味。黄桥烧饼则以其酥脆鲜甜的口感，成为餐后解腻的绝佳选择。',
+        images: ['aw1.JPG'],
+        time: '20分钟',
+        nextStop: '40分钟'
+    },
+    {
+        title: '国家大剧院',
+        subtitle: '待定',
+        description: 
+            '从前门走半个小时，我们可以达到国家大剧院。2007年正式竣工开放的国家大剧院，由法国建筑师保罗·安德鲁设计，总建筑面积约16.5万平方米。其独特的半椭球形建筑主体，东西长轴212.20米，南北短轴143.64米，高46.285米，外围环绕着3.55万平方米的人工湖，形成了举世闻名的"湖中明珠"景观。建筑外壳由18000多块永不褪色的钛金属板和1200多块超白玻璃精心拼接而成，展现了卓越的建筑工艺。<br><br>' +
+            '除了精彩的演出，国家大剧院还定期举办"周末音乐会"、"经典艺术讲堂"等文化普及活动，并推出"百场公益演出"、"校园艺术课"等项目，让艺术走进更多人的生活。作为世界剧院联盟的成员，它在推动中外文化交流方面发挥着重要作用。<br><br>' +
+            '游客可在周二至周日的9:00-17:00（16:30停止换票与检票入院）参观剧院。从北水下廊道进入，可依次游览橄榄厅、公共大厅、歌剧院、音乐厅和戏剧场。剧院还设有艺术精品长廊、纪念品店和咖啡厅，让您在感受艺术氛围的同时，享受悠闲时光。<br><br>' +
+            '我最喜欢的地方是这周围的小公园，非常适合散步，适合发呆。',
+        images: ['gj1.JPG', 'gj2.JPG'],
+        time: '40分钟',
+        nextStop: '第二天行程结束。'
+    }
+]
+    },
+    {
+        id: 3,
+        title: '第三天',
+        subtitle: '品味京城文化',
+        description: '规划中...',
+        locations: [
+    {
+        title: '亮马桥',
+        subtitle: '待定',
+        description: 
+            '第三天是我们旅程的最后一天。于是只安排了两个地方。亮马桥位于北京市朝阳区东三环北路与新源南路、亮马桥路交汇处，毗邻使馆区和CBD商圈。其名字源于亮马河，而亮马河的名称则与"晾马"有关。相传明成祖朱棣在靖难之役期间，曾在东直门外的小河边为战马洗刷晾晒，因此得名"晾马河"，后谐音为"亮马河"。也有传说是因为明代皇家御马苑设于此处，或是清代往来京城的客商常在河边为马匹洗刷晾晒而得名。<br><br>' +
+            '如今的亮马河已成为一条集观赏与休闲于一体的城市景观河道。河畔两岸绿树成荫，景色怡人。在这里，您可以看到人们在河中划桨板、划皮划艇，或是悠闲地坐在河岸边晒太阳看书。河岸两侧还分布着众多特色餐厅，为游客提供了绝佳的休闲空间。<br><br>' +
+            '这里交通便利，可乘坐地铁10号线至亮马桥站，也有多条公交线路可达。周边商业配套完善，有燕莎友谊商城、蓝色港湾等知名商业综合体，以及多家五星级酒店。近年来，随着亮马河的综合治理，这里形成了"国际风情、园林风采、古都风貌、自然风光"四大主题段，24座桥梁各具特色，成为市民休闲娱乐的理想去处。<br><br>' +
+            '在这里，可以完全放慢脚步，抛开烦恼，感受岁月静好。无论是漫步河畔，还是在餐厅小憩，都能让您体验到这座城市独特的魅力。',
 
-        // 위치 버튼 클릭 이벤트
-        document.querySelectorAll('.location-btn').forEach((btn, index) => {
-            btn.addEventListener('click', () => {
-                document.querySelector('.location-btn.active').classList.remove('active');
-                btn.classList.add('active');
-                updateContent(index);
-            });
-        });
+        images: ['lmq1.jpg', 'lmq2.JPG', 'lmq3.JPG'],
+        time: '30分钟', // 시간 정보 추가 필요
+        nextStop: '30分钟' // 다음 장소까지의 이동 시간 정보 추가 필요
+    },
+    {
+        title: '蓝色港湾',
+        subtitle: '待定',
+        description:
+            '北京蓝色港湾位于北京市朝阳区朝阳公园路6号，占地13.7万平方米，于2008年12月投入使用。这里交通便利，可乘坐14号线到枣营站或10号线到亮马桥站，也可乘坐419路、421路、682路等公交线路抵达。但是我们是直接从亮马桥走过来了。这样的话需要30分钟左右<br><br>' +
+            '这座由美国JERDE国际建筑师事务所设计的商区，采用欧洲小镇式建筑风格，以其独特的建筑特色闻名：半室内半室外的玻璃拱顶购物街，环绕的人工湖与绿地，以及采用暗红色和土黄色大理石打造的欧式外立面，营造出浪漫优雅的氛围。<br><br>' +
+            '商区汇聚了1000余个知名品牌、600多家零售店铺、30多家餐饮美食和20多家临水酒吧。主要区域包括SOLANA购物区、亮马食街、中央广场、儿童城、传奇时代影城和全明星滑冰俱乐部等，满足购物、餐饮、娱乐等多样需求。<br><br>' +
+            '蓝色港湾最负盛名的活动要数每年的冬季灯光节。自2008年起，这项活动已成为北京冬季的标志性文化盛事。2025年的第十七届灯光节以"寻光而遇 Here We Shine"为主题，融合巴洛克风格的光影艺术，打造了众多精彩的灯光艺术打卡点和互动场景。除此之外，这里还常年举办音乐喷泉表演、露天市集、亲子活动等丰富多彩的文化活动。<br><br>' +
+            '蓝色港湾全年开放（10:00-22:00），四季皆宜游览，尤其是冬季灯光节期间更是不容错过。',
+        images: ['lg1.jpeg', '/api/placeholder/800/500', '/api/placeholder/800/500'],
+        time: '1个小时', // 시간 정보 추가 필요
+        nextStop: '行程结束' // 다음 장소까지의 이동 시간 또는 일정 종료 정보 추가 필요
+    }
+]
+    }
+];
 
-        // 이미지 캐러셀 버튼 이벤트
-        document.querySelector('.carousel-btn.prev').addEventListener('click', () => {
-            currentImage = (currentImage - 1 + locations[currentLocation].images.length) % locations[currentLocation].images.length;
-            updateImage();
-        });
 
-        document.querySelector('.carousel-btn.next').addEventListener('click', () => {
-            currentImage = (currentImage + 1) % locations[currentLocation].images.length;
-            updateImage();
-        });
 
-        function updateContent(index) {
+let currentDay = 0;
+let currentLocation = 0;
+let currentImage = 0;
+
+// 타임라인 업데이트 함수
+function updateTimeline() {
+    const timelineContainer = document.querySelector('.timeline');
+    timelineContainer.innerHTML = '';
+    
+    days[currentDay].locations.forEach((location, index) => {
+        const button = document.createElement('button');
+        button.className = `location-btn ${index === currentLocation ? 'active' : ''}`;
+        button.setAttribute('data-location', index);
+        
+        button.innerHTML = `
+            <div class="location-number">${index + 1}</div>
+            <span>${location.title}</span>
+        `;
+        
+        button.addEventListener('click', () => {
+            const activeBtn = document.querySelector('.location-btn.active');
+            if (activeBtn) {
+                activeBtn.classList.remove('active');
+            }
+            button.classList.add('active');
             currentLocation = index;
             currentImage = 0;
-            const location = locations[index];
-            
-            document.querySelector('.location-title').textContent = location.title;
-            document.querySelector('.location-info p').innerHTML = location.description;
-            document.querySelector('.meta-info .meta-card:first-child p').textContent = location.time;
-            
-            if (location.nextStop) {
-                document.querySelector('.meta-info .meta-card:last-child').style.display = 'block';
-                document.querySelector('.meta-info .meta-card:last-child p').textContent = location.nextStop;
-            } else {
-                document.querySelector('.meta-info .meta-card:last-child').style.display = 'none';
-            }
-            
+            updateContent(index);
+            updateImage();
+        });
+        
+        timelineContainer.appendChild(button);
+    });
+}
+
+function updateContent(index) {
+    const location = days[currentDay].locations[index];
+    
+    document.querySelector('.location-title').textContent = location.title;
+    document.querySelector('.location-info p').innerHTML = location.description;
+    document.querySelector('.meta-info .meta-card:first-child p').textContent = location.time;
+    
+    if (location.nextStop) {
+        document.querySelector('.meta-info .meta-card:last-child').style.display = 'block';
+        document.querySelector('.meta-info .meta-card:last-child p').textContent = location.nextStop;
+    } else {
+        document.querySelector('.meta-info .meta-card:last-child').style.display = 'none';
+    }
+}
+
+function updateImage() {
+    const location = days[currentDay].locations[currentLocation];
+    const imgElement = document.querySelector('.carousel-image');
+    if (location && location.images && location.images.length > 0) {
+        imgElement.src = location.images[currentImage];
+    }
+}
+
+function initializeCarousel() {
+    const prevButton = document.querySelector('.carousel-btn.prev');
+    const nextButton = document.querySelector('.carousel-btn.next');
+    
+    prevButton.addEventListener('click', () => {
+        const location = days[currentDay].locations[currentLocation];
+        if (location && location.images && location.images.length > 0) {
+            currentImage = (currentImage - 1 + location.images.length) % location.images.length;
             updateImage();
         }
+    });
 
-        function updateImage() {
-            document.querySelector('.carousel-image').src = locations[currentLocation].images[currentImage];
+    nextButton.addEventListener('click', () => {
+        const location = days[currentDay].locations[currentLocation];
+        if (location && location.images && location.images.length > 0) {
+            currentImage = (currentImage + 1) % location.images.length;
+            updateImage();
         }
+    });
+}
+
+// 일차 탭 클릭 이벤트
+document.querySelectorAll('.day-tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+        document.querySelector('.day-tab.active').classList.remove('active');
+        tab.classList.add('active');
+        
+        currentDay = parseInt(tab.getAttribute('data-day'));
+        currentLocation = 0;
+        currentImage = 0;
+        
+        updateTimeline();
+        updateContent(0);
+        updateImage();
+    });
+});
+
+// 단 한 번만 실행되는 초기화
+document.addEventListener('DOMContentLoaded', () => {
+    updateTimeline();
+    if (days[currentDay].locations.length > 0) {
+        updateContent(0);
+        updateImage();
+    }
+    initializeCarousel();
+});
     </script>
 </body>
 </html>
