@@ -30,8 +30,8 @@
 
 # 计算机科学与编程入门课程期末作业
 ## 作业说明
-一）该网站试图提供小红书内容分析。通过可视化界面，用户可以轻松探索小红书的数据趋势。
-二）微调大模型（详细内容请参考huggingface链接）
+1) 该网站试图提供小红书内容分析。通过可视化界面，用户可以轻松探索小红书的数据趋势。
+2) 微调大模型（详细内容请参考huggingface链接）
 
 [作业链接](https://galbi-joa.github.io/xiaohongshu_alyz.html)
 [huggingface链接](https://huggingface.co/ilovesushiandkimchiandmalaxiangguo/shuPT-instructions)
